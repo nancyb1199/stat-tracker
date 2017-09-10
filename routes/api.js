@@ -9,8 +9,13 @@ router.use(bodyParser.json());
 const Act = require("../models/act");
 // const Act = models.act;
 
-
-// endpoints in this file are nested under '/api'
+router.get('/activities/:id', function(req, res) {
+  console.log('in activities/id');
+  console.log(req.params.id);
+  Act.find({_id: req.params.id}).then(function(results) {
+    return res.json(results);
+  });
+});
 
 router.get('/activities', function(req, res) {
     Act.find().then(function(results) {
@@ -19,13 +24,8 @@ router.get('/activities', function(req, res) {
 });
 router.post('/activities', function(req, res) {
   console.log(req);
-  Act.create({
-    activity: req.params.activity,
-    date: req.params.date,
-    amount: req.params.amount
-    });
+  Act.create(req.body);
 });
-
 
 
 
