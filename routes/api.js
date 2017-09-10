@@ -26,13 +26,23 @@ router.put('/activities/:id', function(req, res) {
     });
 });
 
+router.delete('/activities/:id', function(req, res) {
+  Act.deleteOne({_id: req.params.id})
+      .then(function(results) {
+      return res.json(results);
+    });
+});
+
+
 router.get('/activities', function(req, res) {
     Act.find().then(function(results) {
       return res.json(results);
     });
 });
 router.post('/activities', function(req, res) {
-  Act.create(req.body);
+  Act.create(req.body).then(function(results) {
+    return res.json(results);
+  });
 });
 
 
